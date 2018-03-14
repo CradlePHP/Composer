@@ -1,0 +1,19 @@
+{
+    "name": "cradlephp/composer",
+    "description": "Composer and Packagist Helpers",
+    "type": "library",
+    "require": {
+        "composer/composer": "^1.6"
+    },
+    "require-dev": {
+        "symfony/console": "^4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Charles Zamora",
+            "email": "czamora@openoovavate.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

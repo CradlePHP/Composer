@@ -94,7 +94,7 @@ class Packagist
      * 
      * @return array
      */
-    public function lists()
+    public function list()
     {
         // create request url
         $url = $this->buildRequest(

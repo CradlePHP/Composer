@@ -151,19 +151,21 @@ class Packagist
     /**
      * Get package meta data.
      * 
-     * @param string $vendor
      * @param string $package
      * @return array
      */
-    public function getPackage($vendor, $package)
+    public function get($package)
     {
+        // split package name
+        $package = explode('/', $package);
+
         // create request url
         $url = $this->buildRequest(
             self::API_HOST, 
             sprintf(
                 self::GET_PACKAGE_META,
-                $vendor,
-                $package
+                $package[0],
+                $package[1]
             ),
             $this->query
         );

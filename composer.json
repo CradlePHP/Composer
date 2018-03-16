@@ -15,5 +15,10 @@
             "email": "czamora@openoovavate.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Cradle\\Composer\\": "src/"
+        }
+    }
 }

@@ -66,7 +66,7 @@ class Command
      * @param string $value
      * @return $this
      */
-    public function addParameter($key, $value)
+    public function addParameter($key, $value = null)
     {
         // has --?
         if (strpos($key, '--') === false) {

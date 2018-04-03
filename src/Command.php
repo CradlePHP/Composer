@@ -39,6 +39,13 @@ class Command
     protected $parameters = [];
 
     /**
+     * Custom Output Handler
+     * 
+     * @var callable|null $outputHandler
+     */
+    protected $outputHandler = null;
+
+    /**
      * Set composer home
      * 
      * @param string $home
@@ -57,6 +64,9 @@ class Command
 
         // put composer home to env
         putenv(sprintf('COMPOSER_HOME=%s', $this->home));
+
+        // improve performance by enabling xdebug
+        putenv('COMPOSER_DISABLE_XDEBUG_WARN=1');
     }
 
     /**
@@ -90,6 +100,20 @@ class Command
     {
         // set composer home
         $this->home = $home;
+
+        return $this;
+    }
+
+    /**
+     * Set output handler
+     * 
+     * @param callable $handler
+     * @return $this
+     */
+    public function setOutputHandler(callable $handler)
+    {
+        // set custom output handler
+        $this->outputHandler = $handler;
 
         return $this;
     }
@@ -185,13 +209,21 @@ class Command
 
         // set string input
         $input = new StringInput($command);
+        // set the output stream handler
+        $output = new OutputStream();
+
+        // do we have custom output handler?
+        if (is_callable($this->outputHandler)) {
+            // set output handler
+            $output->setOutputHandler($this->outputHandler);
+        }
 
         // initialize composer app
         $app = new Application();
         // set auto exit
         $app->setAutoExit(false);
         // run the application
-        $app->run($input);
+        $app->run($input, $output);
     }
 
     /**
